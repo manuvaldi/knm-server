@@ -1,0 +1,38 @@
+{% extends 'layouts/master.html' %}
+{% block title %}View{% endblock %}
+{% block body %}
+<h1>Networks</h1>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">CIDR</th>
+			<th scope="col">Servers</th>
+			<th scope="col">VLAN ID</th>
+			<th scope="col">Options</th>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+	{% for network in networks %}
+		<tr>
+			<td>{{ network.name }}</td>
+			<td>{{ network.cidr }}</td>
+			<td>{{ network.servers }}</td>
+			<td>{{ network.vlanid }}</td>
+			<td>{{ network.options }}</td>
+			<td class="text-right">
+				<div class="row">
+					<form action="{{ url_for('networks_delete') }}" method="post" class="pull-right">
+						<input type="hidden" name="id" value="{{ network.id }}">
+						<input type="submit" class="btn btn-danger" data-toggle="confirmation" {# data-title="¿Estas seguro?" #} value="Delete">
+					</form>
+					<a class="btn btn-primary pull-right" href="{{ url_for('edit_network', id=network.id) }}">Edit</a>
+				</div>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+Options: I=Isolated, D=DHCP
+{% endblock %}
