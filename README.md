@@ -18,3 +18,8 @@ python3 migrations.py
 ```bash
 python3 app.py
 ```
+
+## Run with docker
+```
+docker run -it --rm --name my-running-script -p 5000:5000 -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3 bash -c ./run-up.sh
+```
