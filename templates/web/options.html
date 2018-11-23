@@ -1,0 +1,10 @@
+{% if "I" in network.options %}
+	Isolated<br>
+{% else %}
+	NAT<br>
+{% endif %}
+{% if "D" in network.options %}
+	DHCP enabled<br>
+{% else %}
+	DHCP disabled<br>
+{% endif %}

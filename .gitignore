@@ -1,2 +1,3 @@
 networks.sqlite
 *.pyc
+__pycache__

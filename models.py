@@ -9,14 +9,23 @@ db = SQLAlchemy(app)
 
 class Network(db.Model):
 
-
     __tablename__ = 'networks'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False, unique=True)
     cidr = db.Column(db.String(100), nullable=False, unique=True)
-    servers = db.Column(db.String(200), nullable=False)
     vlanid = db.Column(db.String(20), nullable=False, unique=True)
     options = db.Column(db.String(20), nullable=False)
+    servers = db.Column(db.String(200), nullable=False)
     def __repr__(self):
         return '<Networks %r>' % self.name
+
+class Server(db.Model):
+
+    __tablename__ = 'servers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False, unique=True)
+    description = db.Column(db.String(100), nullable=False, unique=True)
+    def __repr__(self):
+        return '<Servers %r>' % self.name
