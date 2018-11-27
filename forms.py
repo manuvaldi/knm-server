@@ -13,3 +13,4 @@ class NetworkForm(FlaskForm):
 class ServerForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=-1, max=80, message='You cannot have more than 80 characters')])
     description = StringField('Description', validators=[DataRequired(),Length(min=-1, max=100, message='You cannot have more than 100 characters')])
+    mac_address = StringField('MAC Address', validators=[Length(min=-1, max=18, message='You cannot have more than 18 characters')])

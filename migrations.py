@@ -19,6 +19,6 @@ for num in range(10):
     mi_network = Network(name=name, cidr=cidr, servers=servers, vlanid=vlanid, options=options)
     db.session.add(mi_network)
 
-mi_server = Server(name='server1', description='descserver')
+mi_server = Server(name='server1', description='descserver', mac_address='00:01:02:03:04:05')
 db.session.add(mi_server)
 db.session.commit()

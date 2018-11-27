@@ -2,6 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request, flash
 from models import db, Network, Server
 from forms import NetworkForm
 from forms import ServerForm
+from wakeonlan import send_magic_packet
 
 # Flask
 app = Flask(__name__)
@@ -177,7 +178,7 @@ def networks_delete():
 @app.route("/servers/delete", methods=('POST',))
 def servers_delete():
     '''
-    Delete network
+    Delete server
     '''
     try:
         mi_servero = Server.query.filter_by(id=request.form['id']).first()
@@ -186,10 +187,26 @@ def servers_delete():
         flash('Delete successfully.', 'danger')
     except:
         db.session.rollback()
-        flash('Error delete  network.', 'danger')
+        flash('Error delete server.', 'danger')
 
     return redirect(url_for('servers'))
 
+@app.route("/servers/wakeup", methods=('POST',))
+def servers_wakeup():
+    '''
+    WakeUp Server
+    '''
+    try:
+        mi_servero = Server.query.filter_by(id=request.form['id']).first()
+        # db.session.delete(mi_servero)
+        # db.session.commit()
+        send_magic_packet(mi_servero.mac_address)
+        flash('Wake UP successfully.', 'success')
+    except:
+        db.session.rollback()
+        flash('Error Wake UP server.', 'danger')
+
+    return redirect(url_for('servers'))
 
 @app.route("/network.json")
 def networkjson():

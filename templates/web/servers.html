@@ -7,6 +7,7 @@
 		<tr>
 			<th scope="col">Name</th>
 			<th scope="col">Description</th>
+			<th scope="col">MAC Address</th>
 			<td></td>
 		</tr>
 	</thead>
@@ -15,14 +16,20 @@
 		<tr>
 			<td>{{ server.name }}</td>
 			<td>{{ server.description }}</td>
+			<td>{{ server.mac_address }}</td>
 
 			<td class="text-right">
 				<div class="row">
+					<form action="{{ url_for('servers_wakeup') }}" method="post" class="pull-left">
+						<input type="hidden" name="id" value="{{ server.id }}">
+						<input type="submit" class="btn btn-danger" data-toggle="confirmation" {# data-title="¿Estas seguro?" #} value="Wakeup">
+					</form>
 					<form action="{{ url_for('servers_delete') }}" method="post" class="pull-right">
 						<input type="hidden" name="id" value="{{ server.id }}">
 						<input type="submit" class="btn btn-danger" data-toggle="confirmation" {# data-title="¿Estas seguro?" #} value="Delete">
 					</form>
 					<a class="btn btn-primary pull-right" href="{{ url_for('edit_server', id=server.id) }}">Edit</a>
+
 				</div>
 			</td>
 		</tr>
