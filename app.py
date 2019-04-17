@@ -214,7 +214,17 @@ def networkjson(servername):
     import json
     import pickle
 
-    my_server = Server.update.where(name==servername).values(keepalive=datetime.datetime.now)
+
+
+    try:
+        my_server = Server.query.filter_by(name=servername).first()
+        admin.email = 'my_new_email@example.com'
+        db.session.commit()
+        Server.query.filter_by(name=servername).update({"keepalive": datetime.datetime.now})
+        db.session.commit()
+    except:
+        db.session.rollback()
+
     networks = Network.query.order_by(Network.name).all()
     output = []
     for network in networks:
