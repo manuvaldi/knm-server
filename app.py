@@ -214,13 +214,9 @@ def networkjson(servername):
     import json
     import pickle
 
-
-
     try:
         my_server = Server.query.filter_by(name=servername).first()
-        admin.email = 'my_new_email@example.com'
-        db.session.commit()
-        Server.query.filter_by(name=servername).update({"keepalive": datetime.datetime.now})
+        my_server.keepalive = datetime.datetime.now()
         db.session.commit()
     except:
         db.session.rollback()
