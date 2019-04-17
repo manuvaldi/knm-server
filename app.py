@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, redirect, url_for, render_template, request, flash
 from models import db, Network, Server
 from forms import NetworkForm
@@ -208,10 +209,12 @@ def servers_wakeup():
 
     return redirect(url_for('servers'))
 
-@app.route("/network.json")
-def networkjson():
+@app.route("/network.json/<servername>", methods=('GET',))
+def networkjson(servername):
     import json
     import pickle
+
+    my_server = Server.update.where(name==servername).values(keepalive=datetime.datetime.now)
     networks = Network.query.order_by(Network.name).all()
     output = []
     for network in networks:

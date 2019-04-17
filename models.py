@@ -28,5 +28,6 @@ class Server(db.Model):
     name = db.Column(db.String(80), nullable=False, unique=True)
     description = db.Column(db.String(100), nullable=False, unique=True)
     mac_address = db.Column(db.String(18), nullable=True)
+    keepalive = db.Column(db.TIMESTAMP, nullable=True)
     def __repr__(self):
         return '<Servers %r>' % self.name
